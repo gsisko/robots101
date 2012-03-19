@@ -6,8 +6,9 @@
 //helper functions
 void setWheels(signed char rightWheel, signed char leftWheel)
 {
+	//this setup is used so that each wheel has a full range from -127 to 128
 	SetPWM(2, 127 + rightWheel);
-	SetPWM(3, 127 - leftWheel);	
+	SetPWM(3, 128 - leftWheel);	
 }
 
 inline void setWheels(signed char speed)
@@ -15,14 +16,18 @@ inline void setWheels(signed char speed)
 	setWheels(speed, speed);
 }
 
+inline void stop(void)
+{
+	setWheels(0,1);
+}
 void rotateRight(degrees)
 {
-	setWheels(128, -128)
+	setWheels(128, -127)
 	Wait(degrees);
 }
 
 //excercise 2
-void forwardRoute()
+void forwardRoute(void)
 {
 	setWheels(0);		    //start at rest
 	setWheels(FULL_SPEED/4);    //go forward at 1/4 speed for 4 seconds
@@ -39,33 +44,33 @@ void forwardRoute()
 	Wait(3000);
 	setWheels(FULL_SPEED/4);    //go forward at 1/4 speed for 4 seconds
 	Wait(4000);
-	setWheels(0);		    //stop
+	stop();			    //stop
 }
 
 //excercise 3
 //for this function to work there must be a bump sensor in digital port 6
-void forwardMarch()
+void forwardMarch(void)
 {
 	setWheels(0);		    //start at rest
 	setWheels(FULL_SPEED/4);    //go forward at 1/4 speed for 4 seconds
-	while(!getDigitalInput(6)){}                                       
+	while(!getDigitalInput(6));                                       
 	setWheels(FULL_SPEED/2);    //go forward at 1/2 speed for 3 seconds
-	while(!getDigitalInput(6)){}                                       
+	while(!getDigitalInput(6));                                       
 	setWheels(FULL_SPEED*(3/4));//go foreward 3/4 speed for 2 seconds
-	while(!getDigitalInput(6)){}                                       
+	while(!getDigitalInput(6));                                       
 	setWheels(FULL_SPEED);      //go forward at full speed for 1 second
-	while(!getDigitalInput(6)){}                                       
+	while(!getDigitalInput(6));                                       
 	setWheels(FULL_SPEED*(3/4));//go forward 3/4 speed for 2 seconds
-	while(!getDigitalInput(6)){}                                       
+	while(!getDigitalInput(6));                                       
 	setWheels(FULL_SPEED/2);    //go forward at 1/4 speed for 4 second
-	while(!getDigitalInput(6)){}                                       
+	while(!getDigitalInput(6));                                       
 	setWheels(FULL_SPEED/4);    //go forward at 1/4 speed for 4 seconds
-	while(!getDigitalInput(6)){}
-	setWheels(0);		    //stop
+	while(!getDigitalInput(6));
+	stop();			    //stop
 }
 
 //excersise 4
-void drawSpiral()
+void drawSpiral(void)
 {    
 	//the purpose of this function is to increase the length the robot goes each time it makes another line in the square spiral
 	int i;
@@ -75,4 +80,14 @@ void drawSpiral()
 		Wait(500*i);
 		rotateRight(RIGHT_ANGLE);
 	}
+}
+
+//this is just a main function so that this program will compile
+//instead of writing separate main functins for each excersise, I just made them into a function
+//they are called in main so that the compiler doesn't ignore them when it realizes they aren't used
+void main(void)
+{
+	drawSpiral();
+	forwardMarch();
+	forwardRoute();
 }
