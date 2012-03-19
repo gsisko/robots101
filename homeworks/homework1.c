@@ -4,6 +4,12 @@
 #define RIGHT_ANGLE 580
 
 //helper functions
+void waitFor(bpin)
+{
+	while(!GetDigitalInput(bpin));
+	while(GetDigitalInput(bpin));
+}
+
 void setWheels(signed char rightWheel, signed char leftWheel)
 {
 	//this setup is used so that each wheel has a full range from -127 to 128
@@ -53,19 +59,19 @@ void forwardMarch(void)
 {
 	setWheels(0);		    //start at rest
 	setWheels(FULL_SPEED/4);    //go forward at 1/4 speed for 4 seconds
-	while(!getDigitalInput(6));                                       
+	waitFor(6);
 	setWheels(FULL_SPEED/2);    //go forward at 1/2 speed for 3 seconds
-	while(!getDigitalInput(6));                                       
+	waitFor(6);
 	setWheels(FULL_SPEED*(3/4));//go foreward 3/4 speed for 2 seconds
-	while(!getDigitalInput(6));                                       
+	waitFor(6);
 	setWheels(FULL_SPEED);      //go forward at full speed for 1 second
-	while(!getDigitalInput(6));                                       
+	waitFor(6);
 	setWheels(FULL_SPEED*(3/4));//go forward 3/4 speed for 2 seconds
-	while(!getDigitalInput(6));                                       
+	waitFor(6);
 	setWheels(FULL_SPEED/2);    //go forward at 1/4 speed for 4 second
-	while(!getDigitalInput(6));                                       
+	waitFor(6);
 	setWheels(FULL_SPEED/4);    //go forward at 1/4 speed for 4 seconds
-	while(!getDigitalInput(6));
+	waitFor(6);
 	stop();			    //stop
 }
 
