@@ -1,7 +1,7 @@
 #include "BuiltIns.h"
 #define FULL_SPEED 128
 //this is the time it took the robot to turn 90 degrees in lab
-#define 90DEG 580
+#define RIGHT_ANGLE 580
 
 //helper functions
 void setWheels(signed char rightWheel, signed char leftWheel)
@@ -73,6 +73,6 @@ void drawSpiral()
 	{
 		setWheels(FULL_SPEED);
 		Wait(500*i);
-		rotateRight(90DEG);
+		rotateRight(RIGHT_ANGLE);
 	}
 }
