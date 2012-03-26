@@ -1,6 +1,6 @@
 #include "BuiltIns.h"
-#define ITS 
-#define 90DEG
+#define ITS .0641025641
+#define 90DEG 580
 
 void DriveStraight(int distance)
 {
